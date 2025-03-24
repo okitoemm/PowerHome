@@ -1,6 +1,5 @@
 # PowerHome - Application de Gestion Énergétique
 
-## Structure du Projet
 
 ## État d'Avancement
 
