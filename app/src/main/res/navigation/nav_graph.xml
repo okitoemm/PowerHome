@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.g205emmanuelbryanhugo.powerhome.fragments.HomeFragment"
+        android:label="Accueil"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_habitat"
+            app:destination="@id/myHabitatFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myHabitatFragment"
+        android:name="com.g205emmanuelbryanhugo.powerhome.fragments.MyHabitatFragment"
+        android:label="Mon Habitat"
+        tools:layout="@layout/fragment_my_habitat" />
+
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.g205emmanuelbryanhugo.powerhome.fragments.NotificationsFragment"
+        android:label="Notifications"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.g205emmanuelbryanhugo.powerhome.fragments.SettingsFragment"
+        android:label="Préférences"
+        tools:layout="@layout/fragment_settings" />
+
+    <dialog
+        android:id="@+id/aboutDialog"
+        android:name="com.g205emmanuelbryanhugo.powerhome.dialogs.AboutDialog"
+        android:label="À propos" />
+
+</navigation>

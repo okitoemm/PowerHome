@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name" translatable="false">PowerHome</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="app_logo" translatable="false">Logo PowerHome</string>
+    <string name="nav_drawer_open" translatable="false">Ouvrir le menu</string>
+    <string name="nav_drawer_close" translatable="false">Fermer le menu</string>
+    <string name="error_network" translatable="false">Erreur de connexion</string>
+    <string name="error_server" translatable="false">Erreur serveur</string>
+    <string name="success_login" translatable="false">Connexion réussie</string>
+    <string name="success_register" translatable="false">Inscription réussie</string>
+</resources>

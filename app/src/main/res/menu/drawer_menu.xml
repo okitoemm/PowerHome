@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="Accueil"
+            android:icon="@drawable/ic_home" />
+        <item
+            android:id="@+id/nav_my_habitat"
+            android:title="Mon Habitat"
+            android:icon="@drawable/ic_habitat" />
+        <item
+            android:id="@+id/nav_notifications"
+            android:title="Mes Notifications"
+            android:icon="@drawable/ic_notifications" />
+        <item
+            android:id="@+id/nav_settings"
+            android:title="Mes Préférences"
+            android:icon="@drawable/ic_settings" />
+    </group>
+</menu>
