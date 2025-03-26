@@ -1,5 +1,6 @@
 package com.g205emmanuelbryanhugo.powerhome;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.content.Intent;
 import android.util.Patterns;
@@ -7,7 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
@@ -28,7 +37,41 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin.setOnClickListener(view -> {
             if (validateFields()) {
-                // TODO: Implémenter l'authentification réelle
+                String email = etEmail.getText().toString().trim();
+                String password = etPassword.getText().toString().trim();
+
+                String url = "http://10.0.2.2/powerhome_php/login.php?email=" + email + "&password=" + password;
+
+                RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+                StringRequest request = new StringRequest(Request.Method.GET, url,
+                    response -> {
+                        try {
+                            if (response.contains("incorrect")) {
+                                etPassword.setError("Email ou mot de passe incorrect");
+                                return;
+                            }
+
+                            JSONObject json = new JSONObject(response);
+                            String token = json.getString("token");
+                            String expiredAt = json.getString("expired_at");
+
+                            SharedPreferences prefs = getSharedPreferences("app_prefs", MODE_PRIVATE);
+                            prefs.edit()
+                                .putString("token", token)
+                                .putString("expired_at", expiredAt)
+                                .apply();
+
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
+                        } catch (Exception e) {
+                            Toast.makeText(LoginActivity.this, "Erreur : " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    },
+                    error -> {
+                        Toast.makeText(LoginActivity.this, "Erreur réseau", Toast.LENGTH_LONG).show();
+                    });
+
+                queue.add(request);
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
             }

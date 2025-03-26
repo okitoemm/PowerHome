@@ -1,18 +1,19 @@
 package com.g205emmanuelbryanhugo.powerhome;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import android.content.Intent;
-import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.util.Patterns;
+import android.widget.Toast;
+import android.content.Intent;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText etEmail, etPassword, etConfirmPassword;
@@ -32,9 +33,23 @@ public class RegisterActivity extends AppCompatActivity {
 
         btnRegister.setOnClickListener(view -> {
             if (validateFields()) {
-                // TODO: Implémenter l'inscription réelle
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                finish();
+                String email = etEmail.getText().toString().trim();
+                String password = etPassword.getText().toString().trim();
+
+                String url = "http://10.0.2.2/powerhome_php/register.php?email=" + email + "&password=" + password;
+
+                RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+                StringRequest request = new StringRequest(Request.Method.GET, url,
+                        response -> {
+                            Toast.makeText(RegisterActivity.this, "Inscription réussie. Vous pouvez maintenant vous connecter.", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                            finish();
+                        },
+                        error -> {
+                            Toast.makeText(RegisterActivity.this, "Erreur réseau ou serveur", Toast.LENGTH_LONG).show();
+                        });
+
+                queue.add(request);
             }
         });
 
